@@ -32,8 +32,9 @@ function runQuery(query, connection) {
   let incomplete = false;
   const rows = [];
   const port = connection.port || 8123;
+  const protocol = connection.ssl ? 'https' : 'http';
   const clickhouseConfig = {
-    url: `http://${connection.host}:${port}`,
+    url: `${protocol}://${connection.host}:${port}`,
     user: connection.username || 'default',
     password: connection.password || '',
     database: connection.database || 'default',
@@ -105,6 +106,11 @@ const fields = [
     key: 'database',
     formType: 'TEXT',
     label: 'Database Name (optional)',
+  },
+  {
+    key: 'ssl',
+    formType: 'CHECKBOX',
+    label: 'Use SSL',
   },
 ];
 
